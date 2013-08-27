@@ -59,7 +59,9 @@
 
             <h4>@variant.getPrice.getValue</h4>
             
-            <div class="rateit"  id="global-rateit" data-rateit-value="4.5" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+            @defining(product.getRating.getScore * 5){rating =>
+				<div class="rateit"  id="global-rateit" data-rateit-value=@rating data-rateit-ispreset="true" data-rateit-readonly="true"></div>	
+			}            
 
             <div class="product-info-variants">
                 @if(hasMoreColors(product)) {
