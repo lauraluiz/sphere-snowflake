@@ -4,10 +4,12 @@ import controllers.actions.SaveContext;
 import io.sphere.client.shop.model.Category;
 import io.sphere.client.shop.model.Product;
 import io.sphere.client.shop.model.Variant;
+import io.sphere.client.shop.model.Comment;
 import play.mvc.Result;
 import play.mvc.With;
 import sphere.ShopController;
 import views.html.products;
+import java.util.List;
 
 import static utils.ControllerHelper.getDefaultCategory;
 
@@ -23,6 +25,7 @@ public class Products extends ShopController {
         // Case valid select product
         Variant variant = product.getVariants().byId(variantId).or(product.getMasterVariant());
         Category category = getDefaultCategory(product);
-        return ok(products.render(product, variant, category));
+        List<Comment> comments = sphere().comments().byProductId(product.getId()).fetch().getResults();
+        return ok(products.render(product, variant, category, comments));
     }
 }

@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.List;
+
 import controllers.actions.Ajax;
 import controllers.actions.CartNotEmpty;
 import forms.cartForm.ListCart;
@@ -14,7 +16,6 @@ import play.mvc.With;
 import sphere.ShopController;
 import views.html.carts;
 import views.html.products;
-
 import static play.data.Form.form;
 import static utils.ControllerHelper.displayErrors;
 import static utils.ControllerHelper.getDefaultCategory;
@@ -58,8 +59,9 @@ public class Carts extends ShopController {
         // Case valid product to add to cart
         int variantId = getMatchedSizeVariant(product, variant, addToCart.size);
         Cart cart = sphere().currentCart().addLineItem(addToCart.productId, variantId, addToCart.quantity);
-        addToCart.displaySuccessMessage(cart);
-        return ok(products.render(product, variant, getDefaultCategory(product)));
+        addToCart.displaySuccessMessage(cart);                
+        List<Comment> comments = sphere().comments().byProductId(product.getId()).fetch().getResults();
+        return ok(products.render(product, variant, getDefaultCategory(product), comments));
     }
 
     @With(Ajax.class)
