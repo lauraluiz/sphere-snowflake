@@ -19,6 +19,7 @@
     background: url(/assets/images/star.gif);
     height: 16px;
     outline: none;
+    margin: 0 10px 10px 0;
 }
 
 .rateit .rateit-range * {
@@ -61,22 +62,22 @@
 
 .rateit .rateit-selected
 {
-    background: url(/assets/images/star.gif) left -16px;
+    background: url(/assets/images/star.gif) left -32px;
 }
 
 .rateit .rateit-selected-rtl
 {
-    background-position: right -16px;
+    background-position: right -32px;
 }
 
 .rateit .rateit-preset
 {
-    background: url(/assets/images/star.gif) left -48px;
+    background: url(/assets/images/star.gif) left -32px;
 }
 
 .rateit .rateit-preset-rtl
 {
-    background: url(/assets/images/star.gif) left -48px;
+    background: url(/assets/images/star.gif) left -32px;
 }
 
 .rateit button.rateit-reset
@@ -95,4 +96,16 @@
 .rateit button.rateit-reset:hover, .rateit button.rateit-reset:focus
 {
     background-position: 0 -16px;
+}
+
+/* Entries for the comment section */
+
+.comment {
+	display: block;
+	
+	img {
+		display: block;
+		float: left;
+		margin: 0 10px 0 0;
+	}
 }
