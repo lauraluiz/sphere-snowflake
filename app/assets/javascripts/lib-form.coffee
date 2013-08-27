@@ -143,12 +143,13 @@ class window.Form
             return window.location.href = res.redirect if res.redirect?
 
             # Update page data
-            $.each res.data, (key, value) ->
-                elem = $("span[data-form-update=#{key}]")
-                elem.text(value)
+            if res.data?
+                $.each res.data, (key, value) ->
+                    elem = $("span[data-form-update=#{key}]")
+                    elem.text(value)
         # Display success message
+        if res.data? then @displaySuccessMessage(res.data['success'])
         @saved = true
-        @displaySuccessMessage(res.data['success'])
 
     # Execute some actions on submit failure
     failSubmit: (xhr) ->
@@ -171,6 +172,7 @@ class window.Form
 
     # Submit form data
     submit: (url, method, data) ->
+        console.debug data
         url += (if url.split('?')[1] then '&' else '?') + "ajax=true"
         xhr = $.ajax url,
             type: method

@@ -9,15 +9,34 @@ import static utils.ControllerHelper.saveJson;
 
 public class AddReview {
 
-    @Constraints.Pattern(value = "[0-5]", message = "Invalid value for score")
-    public Double score;
+    @Constraints.Min(0)
+    @Constraints.Max(5)
+    @Constraints.Required(message = "Score required")
+    public Integer rating;
 
-    @Constraints.Pattern(value = ".+", message = "Invalid value for comment")
     public String comment;
 
 
     public AddReview() {
 
+    }
+
+    public boolean hasScore() {
+        return rating != null;
+    }
+
+    public boolean hasComment() {
+        return comment != null;
+    }
+
+    public double getScore() {
+        if (rating == null) return 0.0;
+        return rating.doubleValue() / 5.0;
+    }
+
+    public String getComment() {
+        if (comment == null) return "";
+        return comment;
     }
 
     public void displaySuccessMessage() {

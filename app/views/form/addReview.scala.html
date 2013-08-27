@@ -17,13 +17,12 @@
 }
 
 <div class="form">
-    @defining(addReviewForm.field("score").value) { score =>
+    @defining(addReviewForm.field("rating").value) { rating =>
     <div class="control-group">
-        <label for="add-review-score" class="control-label">Score</label>
-        @form.error("add-review-score")
+        <label for="add-review-rating" class="control-label">Score</label>
+        @form.error("add-review-rating")
         <div class="controls">
-            <input type="number" name="score" id="add-review-score" value="@score"
-                   aria-label="Score" />
+            <input type="number" max="5" min="0" name="rating" id="add-review-rating" value="@rating" aria-label="Score">
         </div>
     </div>
     }
@@ -32,9 +31,7 @@
         <label for="add-review-comment" class="control-label">Comment</label>
         @form.error("add-review-comment")
         <div class="controls">
-            <textarea name="comment" cols="50" rows="1" aria-label="Comment" id="add-review-comment" placeholder="Write a comment...">
-                @comment
-            </textarea>
+            <textarea name="comment" cols="50" rows="1" aria-label="Comment" id="add-review-comment" placeholder="Write a comment...">@comment</textarea>
         </div>
     </div>
     }
