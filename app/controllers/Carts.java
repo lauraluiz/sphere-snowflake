@@ -61,7 +61,7 @@ public class Carts extends ShopController {
         // Case valid product to add to cart
         int variantId = getMatchedSizeVariant(product, variant, addToCart.size);
         Cart cart = sphere().currentCart().addLineItem(addToCart.productId, variantId, addToCart.quantity);
-        List<Comment> comments = sphere().comments().byProductId(product.getId()).fetch().getResults();
+        List<Review> comments = sphere().reviews().byProductId(product.getId()).fetch().getResults();
         return ok(products.render(product, variant, getDefaultCategory(product), comments, addReviewForm));
     }
 

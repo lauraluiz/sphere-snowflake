@@ -34,7 +34,7 @@ public class Products extends ShopController {
         // Case valid select product
         Variant variant = product.getVariants().byId(variantId).or(product.getMasterVariant());
         Category category = getDefaultCategory(product);
-        List<Comment> comments = sphere().comments().byProductId(product.getId()).fetch().getResults();
+        List<Review> comments = sphere().reviews().byProductId(product.getId()).fetch().getResults();
         return ok(products.render(product, variant, category, comments, addReviewForm));
     }
 
@@ -61,7 +61,7 @@ public class Products extends ShopController {
         // Case valid select product
         Variant variant = product.getMasterVariant();
         Category category = getDefaultCategory(product);
-        List<Comment> comments = sphere().comments().byProductId(product.getId()).fetch().getResults();
+        List<Review> comments = sphere().reviews().byProductId(product.getId()).fetch().getResults();
         Form<AddReview> form = addReviewForm.bindFromRequest();
         // Case missing or invalid form data
         if (form.hasErrors()) {
@@ -79,7 +79,7 @@ public class Products extends ShopController {
             review = sphere().currentCustomer().createReview(productId, author, product.getName(), addReview.getComment(), addReview.getScore());
         } catch (SphereBackendException sbe) {
             System.out.println("Editing review");
-            VersionedId reviewId = VersionedId.create(addReview.id, addReview.getVersion());
+            VersionedId reviewId = VersionedId.create(addReview.id, addReview.getVersion() + 1);
             ReviewUpdate update = new ReviewUpdate()
                     .setScore(addReview.getScore())
                     .setText(addReview.comment);

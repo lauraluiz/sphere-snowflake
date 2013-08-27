@@ -1,4 +1,4 @@
-@(product: Product, variant: Variant, category: Category, comments: List[Comment], addReviewForm: Form[productForm.AddReview])
+@(product: Product, variant: Variant, category: Category, comments: List[Review], addReviewForm: Form[productForm.AddReview])
 
 @scripts = {
     <script src="@routes.Assets.at("javascripts/product.js")"></script>
@@ -43,7 +43,7 @@
 				@for(comment <- comments) {
 					<div class="comment">
 						<img src="//www.roomido.com/bundles/gujhomestylrfrontend/images/placeholder_avatar_300x300.png" width="50px" />
-						<span>@comment.getAuthor</span>
+						<span>@comment.getAuthor - @(comment.getScore * 5)/5</span>
 						<p>@comment.getText</p>
                         <small>@comment.getCreatedAt</small>
 					</div>
