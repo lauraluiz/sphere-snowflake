@@ -44,9 +44,8 @@
                 </form>
                 
                 <script type="text/javascript">
-    				$("#rateit").bind('rated', function (event, value) { $('#rateit-info').text('DEBUG: ' + value + '/5 bewertet');});
-    				$("#rateit").bind('reset', function () { $('#rateit-info').text('DEBUG: ' + 'Rating reset'); });
-    				$("#rateit").bind('over', function (event, value) { $('#rateit-info').text('DEBUG: ' + value + '/5'); });
+    				$("#rateit").bind('rated', function (event, value) { $('#add-review-rating').val(value);});
+    				$("#rateit").bind('reset', function () { $('#add-review-rating').val(0);});
 				</script>
 				
             </div>
