@@ -6,6 +6,7 @@ import controllers.actions.Ajax;
 import controllers.actions.CartNotEmpty;
 import forms.cartForm.ListCart;
 import forms.customerForm.UpdateCustomer;
+import forms.productForm.AddReview;
 import io.sphere.client.shop.model.*;
 import forms.cartForm.AddToCart;
 import forms.cartForm.RemoveFromCart;
@@ -25,6 +26,7 @@ public class Carts extends ShopController {
     final static Form<AddToCart> addToCartForm = form(AddToCart.class);
     final static Form<UpdateCart> updateCartForm = form(UpdateCart.class);
     final static Form<RemoveFromCart> removeFromCartForm = form(RemoveFromCart.class);
+    final static Form<AddReview> addReviewForm = form(AddReview.class);
 
     @With(CartNotEmpty.class)
     public static Result show() {
@@ -59,9 +61,8 @@ public class Carts extends ShopController {
         // Case valid product to add to cart
         int variantId = getMatchedSizeVariant(product, variant, addToCart.size);
         Cart cart = sphere().currentCart().addLineItem(addToCart.productId, variantId, addToCart.quantity);
-        addToCart.displaySuccessMessage(cart);                
         List<Comment> comments = sphere().comments().byProductId(product.getId()).fetch().getResults();
-        return ok(products.render(product, variant, getDefaultCategory(product), comments));
+        return ok(products.render(product, variant, getDefaultCategory(product), comments, addReviewForm));
     }
 
     @With(Ajax.class)

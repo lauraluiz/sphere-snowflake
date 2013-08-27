@@ -1,0 +1,41 @@
+@(addReviewForm: Form[productForm.AddReview])
+
+@if(flash.containsKey("add-review-error")) {
+<div class="alert alert-error">
+    @flash.get("add-review-error")
+</div>
+}
+@if(flash.containsKey("add-review-success")) {
+<div class="alert alert-success">
+    @flash.get("add-review-success")
+</div>
+}
+@if(flash.containsKey("add-review-info")) {
+<div class="alert alert-info">
+    @flash.get("add-review-info")
+</div>
+}
+
+<div class="form">
+    @defining(addReviewForm.field("score").value) { score =>
+    <div class="control-group">
+        <label for="add-review-score" class="control-label">Score</label>
+        @form.error("add-review-score")
+        <div class="controls">
+            <input type="number" name="score" id="add-review-score" value="@score"
+                   aria-label="Score" />
+        </div>
+    </div>
+    }
+    @defining(addReviewForm.field("comment").value) { comment =>
+    <div class="control-group">
+        <label for="add-review-comment" class="control-label">Comment</label>
+        @form.error("add-review-comment")
+        <div class="controls">
+            <textarea name="comment" cols="50" rows="1" aria-label="Comment" id="add-review-comment" placeholder="Write a comment...">
+                @comment
+            </textarea>
+        </div>
+    </div>
+    }
+</div>

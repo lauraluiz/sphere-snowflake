@@ -60,6 +60,7 @@ GET     /assets/*file                                       controllers.Assets.a
 
 # Product
 GET     /:product-$variant<[0-9]+>.html                     controllers.Products.select(product: String, variant: Int)
+POST    /:product-$variant<[0-9]+>.html                     controllers.Products.review(product: String, variant: Int)
 
 # Category
 GET     /$path<([^.]+/)?>$category<[^/.]+>                  controllers.Categories.select(path: String, category: String, page: Int ?= 1)

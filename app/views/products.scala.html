@@ -1,9 +1,13 @@
-@(product: Product, variant: Variant, category: Category, comments: List[Comment])
+@(product: Product, variant: Variant, category: Category, comments: List[Comment], addReviewForm: Form[productForm.AddReview])
 
 @scripts = {
     <script src="@routes.Assets.at("javascripts/product.js")"></script>
     <script src="@routes.Assets.at("javascripts/cart.js")"></script>
     <script src="@routes.Assets.at("javascripts/jquery.rateit.js")"></script>
+
+    <script id="add-review-template" type="text/x-handlebars-template">
+
+    </script>
 }
 
 @main(product.getName, "product", scripts){
@@ -25,14 +29,14 @@
                 <ul id="review-list">
 
                 </ul>
-                <form id="form-add-review">
-                    <textarea name="text"></textarea>
+                <form method="post" action="@routes.Products.review(product.getSlug, variant.getId)" id="form-add-review">
+                    @form.addReview(addReviewForm)
+                    <button type="submit">Submit</button>
                 </form>
             </div>
         </div>
 
         <aside class="action">
-
             <h5>@product.getName</h5>
 
             <h6>Overview</h6>
