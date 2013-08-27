@@ -1,5 +1,6 @@
 package forms.productForm;
 
+import io.sphere.client.shop.model.Review;
 import org.codehaus.jackson.node.ObjectNode;
 import play.data.validation.Constraints;
 import play.libs.Json;
@@ -7,7 +8,10 @@ import play.libs.Json;
 import static utils.ControllerHelper.saveFlash;
 import static utils.ControllerHelper.saveJson;
 
-public class AddReview {
+public class AddReview extends ListReview {
+
+    public String id;
+    public String version;
 
     @Constraints.Min(0)
     @Constraints.Max(5)
@@ -21,17 +25,15 @@ public class AddReview {
 
     }
 
-    public boolean hasScore() {
-        return rating != null;
-    }
-
-    public boolean hasComment() {
-        return comment != null;
-    }
-
     public double getScore() {
         if (rating == null) return 0.0;
+        System.out.println(rating);
         return rating.doubleValue() / 5.0;
+    }
+
+    public int getVersion() {
+        if (version == null) return 0;
+        return Integer.valueOf(version);
     }
 
     public String getComment() {
@@ -39,13 +41,13 @@ public class AddReview {
         return comment;
     }
 
-    public void displaySuccessMessage() {
+    public void displaySuccessMessage(Review comment) {
         String message = "Your review has been submitted!";
         saveFlash("add-review-success", message);
 
         ObjectNode json = Json.newObject();
         json.put("success", message);
-        //json.put("customer-firstName", customer.getName().getFirstName());
+        json.putAll(getJson(comment));
         saveJson(json);
     }
 

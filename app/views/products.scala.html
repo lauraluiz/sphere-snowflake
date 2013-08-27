@@ -3,11 +3,20 @@
 @scripts = {
     <script src="@routes.Assets.at("javascripts/product.js")"></script>
     <script src="@routes.Assets.at("javascripts/cart.js")"></script>
-    <script src="@routes.Assets.at("javascripts/jquery.rateit.js")"></script>
 
     <script id="add-review-template" type="text/x-handlebars-template">
+        @form.addReview()
+        <div class="rateit" id="rateit" data-rateit-value="{{score}}" data-rateit-ispreset="true" data-rateit-readonly="false"></div>
 
+        <span id="rateit-info"></span>
+
+        <button type="submit" class="btn btn-success" data-loading-text="Saving...">
+            Save
+        </button>
+        <div class="messages"></div>
     </script>
+
+    <script src="@routes.Assets.at("javascripts/jquery.rateit.js")"></script>
 }
 
 @main(product.getName, "product", scripts){
@@ -25,29 +34,20 @@
                     <p itemprop="itemreviewed">@product.getName</p>
                 </div>
             </div>
+
+            <form method="post" action="@routes.Products.addReview(product.getId)" id="form-add-review" data-url="@routes.Products.getReview(product.getId)">
+                @* Load with add review template *@
+            </form>
                       
              <div class="comments">              
 				@for(comment <- comments) {
 					<div class="comment">
 						<img src="//www.roomido.com/bundles/gujhomestylrfrontend/images/placeholder_avatar_300x300.png" width="50px" />
 						<span>@comment.getAuthor</span>
-						<p>@comment.getText</p>						
+						<p>@comment.getText</p>
+                        <small>@comment.getCreatedAt</small>
 					</div>
 				}
-                				            	  
-				<span id="rateit-info"></span>                				            	  
-                				            	         		                
-                <form method="post" action="@routes.Products.review(product.getSlug, variant.getId)" id="form-add-review">
-                    @form.addReview(addReviewForm)                    
-                    <div class="rateit"  id="rateit" data-rateit-value="0" data-rateit-ispreset="true" data-rateit-readonly="false"></div>            		                   
-                    <button type="submit">Submit</button>
-                </form>
-                
-                <script type="text/javascript">
-    				$("#rateit").bind('rated', function (event, value) { $('#add-review-rating').val(value);});
-    				$("#rateit").bind('reset', function () { $('#add-review-rating').val(0);});
-				</script>
-				
             </div>
         </div>
 

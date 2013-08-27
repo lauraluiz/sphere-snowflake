@@ -55,12 +55,15 @@ POST    /user/address/add                                   controllers.Addresse
 POST    /user/address/update                                controllers.Addresses.update()
 POST    /user/address/remove                                controllers.Addresses.remove()
 
+# Review
+GET     /review/get/:id                                     controllers.Products.getReview(id: String)
+POST    /review/add/:id                                     controllers.Products.addReview(id: String)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                                       controllers.Assets.at(path="/public", file)
 
 # Product
 GET     /:product-$variant<[0-9]+>.html                     controllers.Products.select(product: String, variant: Int)
-POST    /:product-$variant<[0-9]+>.html                     controllers.Products.review(product: String, variant: Int)
 
 # Category
 GET     /$path<([^.]+/)?>$category<[^/.]+>                  controllers.Categories.select(path: String, category: String, page: Int ?= 1)

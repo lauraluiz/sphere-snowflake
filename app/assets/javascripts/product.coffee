@@ -4,6 +4,21 @@ $ ->
 
     addReview = new Form $('#form-add-review')
 
+    # Load new review form on page loaded
+    loadReviewForm = ->
+        return unless template?
+        url = addReview.form.data("url")
+        if url?
+            addReview.form.find('.loading-ajax').show()
+            $.getJSON(url, (data) ->
+                console.debug data
+                addReview.form.empty().append(template data)
+                $("#rateit").bind('rated', (event, value) -> $('#add-review-rating').val(value))
+                $("#rateit").bind('reset', -> $('#add-review-rating').val(0))
+                $('div.rateit, span.rateit').rateit()
+                addReview.form.find('.loading-ajax').hide()
+            )
+
     # Bind add review 'save' submit event to 'add review' functionality
     addReview.form.submit( ->
         # Remove alert messages
@@ -41,5 +56,7 @@ $ ->
         # Disable link
         return false
     )
+
+    loadReviewForm()
 
 
