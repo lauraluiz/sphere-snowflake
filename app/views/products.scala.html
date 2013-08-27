@@ -20,13 +20,15 @@
                 <div class="product-name">
                     <p>@product.getName</p>
                 </div>
-                <p>@Html(product.getDescription)</p>
             </div>
         </div>
 
         <aside class="action">
 
             <h5>@product.getName</h5>
+
+            <h6>Overview</h6>
+            <p>@Html(abbreviate(product.getDescription, 200))</p>
 
             <h4>@variant.getPrice.getValue</h4>
 

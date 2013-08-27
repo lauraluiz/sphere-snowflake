@@ -10,6 +10,7 @@ import forms.customerForm.UpdateCustomer;
 import io.sphere.client.model.Money;
 import io.sphere.client.model.SearchResult;
 import io.sphere.client.shop.model.*;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import play.Play;
 import play.data.Form;
@@ -66,6 +67,11 @@ public class ViewHelper {
 
     public static String capitalizeInitials(String text) {
         return WordUtils.capitalizeFully(text);
+    }
+
+    public static String abbreviate(String text, int maxWidth) {
+        if (text == null) return "";
+        return StringUtils.abbreviate(text, maxWidth);
     }
 
     public static String getCountryName(String code) {
