@@ -17,12 +17,12 @@
     </div>
     @helper.breadcrumb(category)
 }{
-    <div id="product-detail" class="product-detail clearfix">
+    <div id="product-detail" class="product-detail clearfix" itemscope="" itemtype="http://data-vocabulary.org/Review">
         <div class="detail">
             <div class="info">
                 <img class="img-polaroid" src="@variant.getFeaturedImage.getSize(ImageSize.LARGE).getUrl"/>
                 <div class="product-name">
-                    <p>@product.getName</p>
+                    <p itemprop="itemreviewed">@product.getName</p>
                 </div>
             </div>
                       
@@ -55,12 +55,14 @@
             <h5>@product.getName</h5>
 
             <h6>Overview</h6>
-            <p>@Html(abbreviate(product.getDescription, 200))</p>
+            <p itemprop="description">@Html(abbreviate(product.getDescription, 200))</p>
 
             <h4>@variant.getPrice.getValue</h4>
             
             @defining(product.getRating.getScore * 5){rating =>
-				<div class="rateit"  id="global-rateit" data-rateit-value=@rating data-rateit-ispreset="true" data-rateit-readonly="true"></div>	
+				<div class="rateit"  id="global-rateit" data-rateit-value=@rating data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+				<span itemprop="rating" style="display:hidden;">@rating</span>	
+				<span itemprop="reviewer" style="display:hidden">Gesamt</span>
 			}            
 
             <div class="product-info-variants">
