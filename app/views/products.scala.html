@@ -30,24 +30,25 @@
 				@for(comment <- comments) {
 					<div class="comment">
 						<img src="//www.roomido.com/bundles/gujhomestylrfrontend/images/placeholder_avatar_300x300.png" width="50px" />
-						<span>Hans-Thomas Hackenbrecht</span>
-						<p>Usually I don't comment, but this product is so NICE, so I had to!!</p>						
+						<span>@comment.getAuthor</span>
+						<p>@comment.getText</p>						
 					</div>
 				}
-                
-				<div class="rateit"  id="rateit" data-rateit-value="0" data-rateit-ispreset="true" data-rateit-readonly="false"></div>
-            	<span id="rateit-info"></span>
-            	
-         		<script type="text/javascript">
-    				$("#rateit").bind('rated', function (event, value) { $('#rateit-info').text(value + '/5 bewertet');});
-    				$("#rateit").bind('reset', function () { $('#rateit-info').text('Rating reset'); });
-    				$("#rateit").bind('over', function (event, value) { $('#rateit-info').text(value + '/5'); });
-				</script>
-                
+                				            	  
+				<span id="rateit-info"></span>                				            	  
+                				            	         		                
                 <form method="post" action="@routes.Products.review(product.getSlug, variant.getId)" id="form-add-review">
-                    @form.addReview(addReviewForm)
+                    @form.addReview(addReviewForm)                    
+                    <div class="rateit"  id="rateit" data-rateit-value="0" data-rateit-ispreset="true" data-rateit-readonly="false"></div>            		                   
                     <button type="submit">Submit</button>
                 </form>
+                
+                <script type="text/javascript">
+    				$("#rateit").bind('rated', function (event, value) { $('#rateit-info').text('DEBUG: ' + value + '/5 bewertet');});
+    				$("#rateit").bind('reset', function () { $('#rateit-info').text('DEBUG: ' + 'Rating reset'); });
+    				$("#rateit").bind('over', function (event, value) { $('#rateit-info').text('DEBUG: ' + value + '/5'); });
+				</script>
+				
             </div>
         </div>
 
